@@ -1,3 +1,7 @@
+ver 2.4:
+	 Fixed command path parsing. Fixed incorrect error handling in 
+	 read_n/write_n. Singnal handling fix.  
+
 ver 2.3:
 	 Fixed incorrect error handling in UDP and TCP drivers. Makefile 
 	 improvements. RPM package fixes. Persist mode fixes. Fixed a 
