@@ -55,7 +55,7 @@ extern inline int read_n(int fd, char *buf, int len)
 
 	do {
 	  if( (w = read(fd, buf, len)) < 0 ){
-	     if( errno == EINTR && errno == EAGAIN )
+	     if( errno == EINTR || errno == EAGAIN )
  	        continue;
 	     return -1;
 	  }
@@ -74,7 +74,7 @@ extern inline int write_n(int fd, char *buf, int len)
 
 	do {
  	  if( (w = write(fd, buf, len)) < 0 ){
-	     if( errno == EINTR && errno == EAGAIN )
+	     if( errno == EINTR || errno == EAGAIN )
   	         continue;
 	     return -1;
 	  }
