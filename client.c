@@ -50,7 +50,7 @@ static int client_term;
 static void sig_term(int sig)
 {
      syslog(LOG_INFO,"Terminated");
-     client_term = -1;
+     client_term = 1;
 }
 
 void client(struct vtun_host *host)
@@ -122,6 +122,8 @@ void client(struct vtun_host *host)
          */
         host->spd_in = host->spd_out = 0;
         host->flags &= VTUN_CLNT_MASK;
+
+	io_init();
 
 	set_title("%s connecting to %s", host->host, vtun.svr_name);
         syslog(LOG_INFO,"Connecting to %s", vtun.svr_name);

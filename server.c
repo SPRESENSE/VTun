@@ -71,6 +71,8 @@ void connection(int sock)
 
      ip = strdup(inet_ntoa(cl_addr.sin_addr));
 
+     io_init();
+
      if( (host=auth_server(sock)) ){	
         sa.sa_handler=SIG_IGN;
 	sa.sa_flags=SA_NOCLDWAIT;;

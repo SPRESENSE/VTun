@@ -160,13 +160,15 @@ static int linker_term;
 
 static void sig_term(int sig)
 {
-     syslog(LOG_INFO,"Closing connection");
+     syslog(LOG_INFO, "Closing connection");
+     io_cancel();
      linker_term = 1;
 }
 
 static void sig_hup(int sig)
 {
-     syslog(LOG_INFO,"Reestablishing connection");
+     syslog(LOG_INFO, "Reestablishing connection");
+     io_cancel();
      linker_term = 2;
 }
 
@@ -365,6 +367,8 @@ int linkfd(struct vtun_host *host)
 	} else
 	   syslog(LOG_ERR, "Can't open stats file %s", file);
      }
+
+     io_init();
 
      lfd_linker();
 
