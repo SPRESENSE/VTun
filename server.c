@@ -159,6 +159,7 @@ void server(int sock)
      sigaction(SIGQUIT,&sa,NULL);
      sigaction(SIGCHLD,&sa,NULL);
      sigaction(SIGPIPE,&sa,NULL);
+     sigaction(SIGUSR1,&sa,NULL);
 
      syslog(LOG_INFO,"VTUN server ver %s (%s)", VTUN_VER,
 		vtun.svr_type == VTUN_INETD ? "inetd" : "stand" );
