@@ -41,6 +41,9 @@
 
 /* Max lenght of device name */
 #define VTUN_DEV_LEN  20 
+
+/* How often to renegotiate key (in bytes) */
+#define VTUN_RESET_KEY 0xFFFF
  
 /* End of configurable part */
 
@@ -89,6 +92,7 @@ struct vtun_host {
    llist down;
 
    int  flags;
+   int  more_flags;
    int  timeout;
    int  spd_in;
    int  spd_out;
@@ -98,7 +102,7 @@ struct vtun_host {
    int  loc_fd;
 
    /* Persist mode */
-   int  persist;
+   int  persist; 
 
    /* Multiple connections */
    int  multi;
@@ -134,6 +138,10 @@ extern llist host_list;
 #define VTUN_SHAPE      0x0004
 #define VTUN_ENCRYPT    0x0008
 
+#define VTUN_IM_CLIENT  0x0001
+#define VTUN_IM_SERVER  0x0002
+#define VTUN_DEV_OPEN   0x0004
+#define VTUN_GET_KEY    0x0008
 /* Mask to drop the flags which will be supplied by the server */
 #define VTUN_CLNT_MASK  0xf000
 
@@ -149,6 +157,7 @@ extern llist host_list;
 #define VTUN_ECHO_REQ	0x2000
 #define VTUN_ECHO_REP	0x4000
 #define VTUN_BAD_FRAME  0x8000
+#define VTUN_NEW_KEY    0xf000
 
 /* Authentication message size */
 #define VTUN_MESG_SIZE	50

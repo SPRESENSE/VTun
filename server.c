@@ -86,6 +86,7 @@ void connection(int sock)
         host->sopt.lport = vtun.svr_port;
         host->sopt.raddr = strdup(ip);
 	host->sopt.rport = ntohs(cl_addr.sin_port);
+	host->more_flags |= VTUN_IM_SERVER;
 
 	/* Start tunnel */
 	tunnel(host);

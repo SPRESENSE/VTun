@@ -55,7 +55,7 @@
  */
 struct vtun_host *lfd_host;
 
-struct lfd_mod *lfd_mod_head = NULL, *lfd_mod_tail = NULL;
+static struct lfd_mod *lfd_mod_head = NULL, *lfd_mod_tail = NULL;
 
 /* Modules functions*/
 
@@ -202,13 +202,14 @@ int lfd_linker(void)
      struct timeval tv;
      char *buf, *out;
      fd_set fdset;
+     int bad_frames;
      int maxfd, idle = 0;
 
      if( !(buf = lfd_alloc(VTUN_FRAME_SIZE + VTUN_FRAME_OVERHEAD)) ){
 	syslog(LOG_ERR,"Can't allocate buffer for the linker"); 
         return 0; 
      }
-
+     buf += 4;
      proto_write(fd1, buf, VTUN_ECHO_REQ);
 
      maxfd = (fd1 > fd2 ? fd1 : fd2) + 1;
@@ -238,11 +239,21 @@ int lfd_linker(void)
 	      if( ++idle > lfd_host->ka_failure ){
 	         syslog(LOG_INFO,"Session %s network timeout", lfd_host->host);
 		 break;	
+
 	      }
-	      /* Send ECHO request */
-	      if( proto_write(fd1, buf, VTUN_ECHO_REQ) < 0 )
-		 break;
+	      if( idle > 1 ){
+		  if( proto_write(fd1, buf, VTUN_ECHO_REQ) < 0 )
+		      break;
+	      }
 	   }
+	   if( lfd_host->stat.comp_out > VTUN_RESET_KEY &&
+	       (lfd_host->more_flags & VTUN_IM_SERVER)) {
+	       lfd_host->more_flags |= VTUN_GET_KEY;
+	       lfd_host->stat.comp_out = 0;
+	       proto_write(fd1, buf, VTUN_NEW_KEY);
+	   }
+	      /* Send ECHO request */
+	   
 	   continue;
 	}	   
 
@@ -259,7 +270,11 @@ int lfd_linker(void)
 	   if( fl ){
 	      if( fl==VTUN_BAD_FRAME ){
 		 syslog(LOG_ERR, "Received bad frame");
+		 if (++bad_frames > 10)
+		     break;
 		 continue;
+	      }else{
+		  bad_frames=0;
 	      }
 	      if( fl==VTUN_ECHO_REQ ){
 		 /* Send ECHO reply */
@@ -274,6 +289,23 @@ int lfd_linker(void)
 	      if( fl==VTUN_CONN_CLOSE ){
 	         syslog(LOG_INFO,"Connection closed by other side");
 		 break;
+	      }
+	      if( fl==VTUN_NEW_KEY ){
+		  struct lfd_mod *mod=lfd_mod_head;
+		  if (!(lfd_host->more_flags&VTUN_GET_KEY)){
+		      lfd_host->more_flags |= VTUN_GET_KEY;
+		      proto_write(fd1, buf, VTUN_NEW_KEY);
+		  }
+
+		  while(mod){
+		      if(!strcmp(mod->name,"Encryptor")){
+			  (mod->alloc)(lfd_host);
+			  break;
+		      }
+		      mod=mod->next;
+		  }
+		  lfd_host->more_flags &= ~VTUN_GET_KEY;
+		  continue;
 	      }
 	   }   
 
@@ -292,6 +324,8 @@ int lfd_linker(void)
 	/* Read data from the local device(fd2), encode and pass it to 
          * the network (fd1) */
 	if( FD_ISSET(fd2, &fdset) && lfd_check_down() ){
+	    if ( lfd_host->more_flags & VTUN_GET_KEY )
+		continue;
 	   if( (len = dev_read(fd2, buf, VTUN_FRAME_SIZE)) < 0 ){
 	      if( errno != EAGAIN && errno != EINTR )
 	         break;
