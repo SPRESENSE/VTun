@@ -210,19 +210,15 @@ int cf2bf(char *str, struct vtun_host *host)
 	     case 'C':
 		if((s = strtol(ptr,&p,10)) == ERANGE || ptr == p) 
 		   return 0;
-		if( s ){
-		   host->flags |= VTUN_ZLIB;
-		   host->zlevel = s; 
-		}
+		host->flags |= VTUN_ZLIB;
+		host->zlevel = s; 
 		ptr = p;
 		break;
 	     case 'L':
 		if((s = strtol(ptr,&p,10)) == ERANGE || ptr == p) 
 		   return 0;
-		if( s ){
-		   host->flags |= VTUN_LZO;
-		   host->zlevel = s; 
-		}
+		host->flags |= VTUN_LZO;
+		host->zlevel = s; 
 		ptr = p;
 		break;
 	     case 'E':
