@@ -247,7 +247,7 @@ int lfd_linker(void)
          * the local device (fd2) */
 	if( FD_ISSET(fd1, &fdset) && lfd_check_up() ){
 	   idle = 0; 
-	   if( (len=proto_read(fd1,buf)) <= 0 )
+	   if( (len=proto_read(fd1, buf)) <= 0 )
 	      break;
 
 	   /* Handle frame flags */

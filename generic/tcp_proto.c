@@ -94,7 +94,7 @@ int tcp_read(int fd, char *buf)
      register int rlen;     
 
      /* Read frame size */
-     if( (rlen = read_n(fd, (char *)&len, sizeof(short)) ) < 0)
+     if( (rlen = read_n(fd, (char *)&len, sizeof(short)) ) <= 0)
 	return rlen;
 
      len = ntohs(len);
