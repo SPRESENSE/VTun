@@ -67,6 +67,7 @@ int main(int argc, char *argv[], char *env[])
      vtun.ifcfg = strdup("/sbin/ifconfig");
      vtun.route = strdup("/sbin/route");
      vtun.fwall = strdup("/sbin/ipchains");	
+     vtun.iproute = strdup("/sbin/ip");	
 
      vtun.svr_name = NULL;
      vtun.svr_port = -1;

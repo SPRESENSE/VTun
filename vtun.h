@@ -167,6 +167,7 @@ struct vtun_opts {
    char *ifcfg;		 /* Command to configure net devices */
    char *route;		 /* Command to configure routing */
    char *fwall; 	 /* Command to configure FireWall */
+   char *iproute;	 /* iproute command */
 
    char *svr_name;       /* Server's host name */
    int  svr_port;	 /* Server's port */
