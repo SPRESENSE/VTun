@@ -20,6 +20,8 @@
  * $Id$
  */ 
 
+/* LZO compression module */
+
 #include "config.h"
 
 #include <stdio.h>
@@ -34,7 +36,6 @@
 #ifdef HAVE_LZO
 
 #include "lzo1x.h"
-/* LZO compression module */
 
 static lzo_byte *zbuf;
 static lzo_voidp wmem;
@@ -126,33 +127,6 @@ int decomp_lzo(int len, char *in, char **out)
      return zlen;
 }
 
-#else  /* HAVE_LZO */
-
-/* Dummy function if LZO support is not compiled */
-int alloc_lzo(struct vtun_host *host)
-{
-     syslog(LOG_INFO, "LZO compression is not supported");
-     return -1;
-}
-
-int free_lzo()
-{
-     return 0;
-}
-
-int comp_lzo(int len, char *in, char **out)
-{ 
-     return 0;
-}
-
-int decomp_lzo(int len, char *in, char **out)
-{
-     return 0;
-}
-
-#endif /* HAVE_LZO */
-
-
 struct lfd_mod lfd_lzo = {
      "LZO",
      alloc_lzo,
@@ -161,5 +135,23 @@ struct lfd_mod lfd_lzo = {
      decomp_lzo,
      NULL,
      free_lzo,
-     NULL,NULL
+     NULL,
+     NULL
 };
+
+#else  /* HAVE_LZO */
+
+int no_lzo(struct vtun_host *host)
+{
+     syslog(LOG_INFO, "LZO compression is not supported");
+     return -1;
+}
+
+struct lfd_mod lfd_lzo = {
+     "LZO",
+     no_lzo, NULL, NULL, NULL, NULL, NULL, NULL, NULL
+};
+
+#endif /* HAVE_LZO */
+
+

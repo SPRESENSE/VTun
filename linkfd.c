@@ -210,6 +210,8 @@ int lfd_linker(void)
         return 0; 
      }
 
+     proto_write(fd1, buf, VTUN_ECHO_REQ);
+
      maxfd = (fd1 > fd2 ? fd1 : fd2) + 1;
 
      linker_term = 0;
