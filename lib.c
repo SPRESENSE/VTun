@@ -149,7 +149,7 @@ int readn_t(int fd, void *buf, size_t count, time_t timeout)
 char * subst_opt(char *str, struct vtun_sopt *opt)
 {
     register int slen, olen, sp, np;
-    register char *optr, *nstr;
+    register char *optr, *nstr, *tmp;
     char buf[10];
 
     if( !str ) return NULL;
@@ -191,10 +191,11 @@ char * subst_opt(char *str, struct vtun_sopt *opt)
                 /* Opt found substitute */
                 olen = strlen(optr);
                 slen = slen - 2 + olen;
-                if( !(nstr = realloc(nstr, slen)) ){
+                if( !(tmp = realloc(nstr, slen)) ){
                    free(nstr);
                    return str;
                 }
+                nstr = tmp;
                 memcpy(nstr + np, optr, olen);
                 np += olen;
              }

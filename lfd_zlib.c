@@ -80,7 +80,9 @@ int zlib_free()
 {
      deflateEnd(&zd);
      inflateEnd(&zi);
-     free(zbuf);
+
+     free(zbuf); zbuf = NULL;
+
      return 0;
 }
 

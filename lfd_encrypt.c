@@ -69,7 +69,7 @@ int alloc_encrypt(struct vtun_host *host)
 
 int free_encrypt()
 {
-   free(enc_buf);
+   free(enc_buf); enc_buf = NULL;
 
    return 0;
 }

@@ -89,8 +89,8 @@ int alloc_lzo(struct vtun_host *host)
 
 int free_lzo()
 {
-     lzo_free(zbuf);
-     lzo_free(wmem);
+     lzo_free(zbuf); zbuf = NULL;
+     lzo_free(wmem); wmem = NULL;
      return 0;
 }
 
