@@ -56,7 +56,7 @@ char * enc_buf;
 
 int alloc_encrypt(struct vtun_host *host)
 {
-   if( !(enc_buf = malloc(ENC_BUF_SIZE)) ){
+   if( !(enc_buf = lfd_alloc(ENC_BUF_SIZE)) ){
       syslog(LOG_ERR,"Can't allocate buffer for encryptor");
       return -1;
    }
@@ -69,7 +69,7 @@ int alloc_encrypt(struct vtun_host *host)
 
 int free_encrypt()
 {
-   free(enc_buf); enc_buf = NULL;
+   lfd_free(enc_buf); enc_buf = NULL;
 
    return 0;
 }
