@@ -100,6 +100,10 @@ struct vtun_host {
    /* Multiple connections */
    int  multi;
 
+   /* Keep Alive */
+   int ka_interval;
+   int ka_failure;
+
    /* Source address */
    struct vtun_addr src_addr;
 

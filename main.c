@@ -77,6 +77,8 @@ int main(int argc, char *argv[], char *env[])
      default_host.flags   = VTUN_TTY | VTUN_TCP;
      default_host.multi   = VTUN_MULTI_ALLOW;
      default_host.timeout = VTUN_CONNECT_TIMEOUT;
+     default_host.ka_interval = 30;
+     default_host.ka_failure  = 4;
 
      /* Start logging to syslog and stderr */
      openlog("vtund", LOG_PID | LOG_NDELAY | LOG_PERROR, LOG_DAEMON);
