@@ -104,7 +104,7 @@ inline int expand_zbuf(int len)
 
 /* 
  * This functions _MUST_ consume all incoming bytes in one pass,
- * that's why we expand buffer dinamicly.
+ * that's why we expand buffer dynamicly.
  */  
 int comp_lzo(int len, char *in, char **out)
 { 
