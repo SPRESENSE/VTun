@@ -207,7 +207,7 @@ int lfd_linker(void)
 
      if( !(buf = malloc(VTUN_FRAME_SIZE + VTUN_FRAME_OVERHEAD)) ){
 	syslog(LOG_ERR,"Can't allocate buffer for the linker"); 
-        return 1; 
+        return 0; 
      }
 
      maxfd = (fd1 > fd2 ? fd1 : fd2) + 1;

@@ -130,6 +130,7 @@ extern llist host_list;
 #define VTUN_CLNT_MASK  0xf000
 
 #define VTUN_STAT	0x1000
+#define VTUN_PERSIST    0x2000
 
 /* Constants and flags for VTun protocol */
 #define VTUN_FRAME_SIZE     2048
@@ -151,8 +152,8 @@ extern llist host_list;
 
 /* Global options */
 struct vtun_opts {
-   int persist;
    int timeout;
+   int persist;
 
    char *cfg_file;
 

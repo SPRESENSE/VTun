@@ -133,10 +133,6 @@ option:  '\n'
 			  if(vtun.svr_type == -1)
 			     vtun.svr_type = $2;
 			} 
-  | K_PERSIST NUM 	{ 
-			  if(vtun.persist == -1) 
-			     vtun.persist = $2; 	
-			}
   | K_TIMEOUT NUM 	{  
 			  if(vtun.timeout == -1)
 			     vtun.timeout = $2; 	
@@ -156,6 +152,10 @@ option:  '\n'
   | K_FWALL PATH 	{   
 			  free(vtun.fwall);  
 			  vtun.fwall = strdup($2); 	
+			}
+  | K_PERSIST NUM 	{ 
+			  if(vtun.persist == -1) 
+			     vtun.persist = $2; 	
 			}
   | K_ERROR		{
 			  cfg_error("Unknown option '%s'",$1);
@@ -216,9 +216,18 @@ host_option: '\n'
 			}
   | K_STAT NUM		{  
 			  if( $2 ) 
-			     parse_host->flags |= VTUN_STAT; 	
+			     parse_host->flags |= VTUN_STAT;
+			  else
+			     parse_host->flags &= ~VTUN_STAT;
+			}
+  | K_PERSIST NUM 	{ 
+			  if( $2 ) 
+			     parse_host->flags |= VTUN_PERSIST;
 			  else	
-			     parse_host->flags &= ~VTUN_STAT; 	
+			     parse_host->flags &= ~VTUN_PERSIST;
+
+			  if(vtun.persist == -1) 
+			     vtun.persist = $2; 	
 			}
   | K_TYPE NUM 		{  
 			  parse_host->flags &= ~VTUN_TYPE_MASK;

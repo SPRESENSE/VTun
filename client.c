@@ -76,7 +76,7 @@ void client(struct vtun_host *host)
      client_term = 0; reconnect = 0;
      while( !client_term ){ 
 	if( reconnect ){
-	   if( vtun.persist ){
+	   if( vtun.persist || (host->flags & VTUN_PERSIST) ){
 	      /* Persist mode. Sleep and reconnect. */
 	      sleep(5);
            } else {
