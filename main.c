@@ -210,6 +210,7 @@ void reread_config(int sig)
 
 void usage(void)
 {
+     printf("VTun ver %s\n", VTUN_VER);
      printf("Usage: \n");
      printf("  Server:\n");
      printf("\tvtund <-s> [-f file] [-P port]\n");
