@@ -47,8 +47,8 @@ void *cp_cmd(void *d, void *u);
 int free_cmd(void *d, void *u);
 
 void copy_addr(struct vtun_host *to, struct vtun_host *from);
+int free_host(void *d, void *u);
 void free_addr(struct vtun_host *h);
-
 void free_host_list(void);
 
 int yyparse(void);

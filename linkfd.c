@@ -156,7 +156,7 @@ inline int lfd_check_up(void)
 		
 /********** Linker *************/
 /* Termination flag */
-static int linker_term;
+static volatile sig_atomic_t linker_term;
 
 static void sig_term(int sig)
 {

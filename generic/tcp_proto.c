@@ -57,7 +57,6 @@
 int tcp_write(int fd, char *buf, int len)
 {
      register char *ptr;
-     register int wlen;
 
      ptr = buf - sizeof(short);
 

@@ -24,6 +24,7 @@
 
 #include "config.h"
 #include <sys/types.h>
+#include <signal.h>
 #include <errno.h>
 
 #ifdef HAVE_LIBUTIL_H
@@ -49,7 +50,7 @@ int  run_cmd(void *d, void *opt);
 void free_sopt(struct vtun_sopt *opt);
 
 /* IO cancelation */
-extern volatile int __io_canceled;
+extern volatile sig_atomic_t __io_canceled;
 
 static inline void io_init(void)
 {
