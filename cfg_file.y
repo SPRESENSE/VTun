@@ -201,7 +201,7 @@ syslog_opt:
                         }
 
   | K_ERROR 		{
-   			  cfg_error("Unknown keepalive option '%s'",$1);
+   			  cfg_error("Unknown syslog option '%s'",$1);
   			  YYABORT;
 			}
   ;
