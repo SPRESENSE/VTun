@@ -18,7 +18,7 @@
  */
 
 /*
- * $Id$
+ * cfg_file.l,v 1.2 2001/09/20 06:26:41 talby Exp
  */ 
 
 #include "config.h"
@@ -27,7 +27,7 @@
 
 #include "vtun.h"
 
-#include "cfg_file.tab.h"
+#include "cfg_file.h"
 #include "cfg_kwords.h"
 
 /* static buffer for strings */
