@@ -262,7 +262,7 @@ int server_addr(struct sockaddr_in *addr, struct vtun_host *host)
       * address can be dynamic.
       */
      if( !(hent = gethostbyname(vtun.svr_name)) ){
-        syslog(LOG_ERR, "Can't resolv server address %s", vtun.svr_name);
+        syslog(LOG_ERR, "Can't resolv server address: %s", vtun.svr_name);
         return -1;
      }
      addr->sin_addr.s_addr = *(unsigned long *)hent->h_addr; 

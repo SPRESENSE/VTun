@@ -57,7 +57,7 @@ void client(struct vtun_host *host)
 {
      struct sockaddr_in my_addr,svr_addr;
      struct sigaction sa;
-     int s,opt;	
+     int s, opt, reconnect;	
 
      syslog(LOG_INFO,"VTun client ver %s started",VTUN_VER);
 
@@ -73,24 +73,38 @@ void client(struct vtun_host *host)
      sa.sa_handler=sig_term;
      sigaction(SIGTERM,&sa,NULL);
  
-     client_term = 0;
+     client_term = 0; reconnect = 0;
      while( !client_term ){ 
+	if( reconnect ){
+	   if( vtun.persist ){
+	      /* Persist mode. Sleep and reconnect. */
+	      sleep(5);
+           } else {
+	      /* Exit */
+	      break;
+	   }
+	} else {
+	   reconnect = 1;
+        }
+
 	set_title("%s init initializing", host->host);
 
 	/* Set server address */
-        if( server_addr(&svr_addr, host) )
-	   break;
+        if( server_addr(&svr_addr, host) < 0 )
+	   continue;
 
 	/* Set local address */
-	local_addr(&my_addr, host, 0);
+	if( local_addr(&my_addr, host, 0) < 0 )
+	   continue;
 
 	/* We have to create socket again every time
 	 * we want to connect, since STREAM sockets 
 	 * can be successfully connected only once.
 	 */
-        if( (s=socket(AF_INET,SOCK_STREAM,0))==-1 ){
-	   syslog(LOG_ERR,"Can not create socket");
-	   break;
+        if( (s = socket(AF_INET,SOCK_STREAM,0))==-1 ){
+	   syslog(LOG_ERR,"Can't create socket. %s(%d)", 
+		strerror(errno), errno);
+	   continue;
         }
 
 	/* Required when client is forced to bind to specific port */
@@ -98,8 +112,9 @@ void client(struct vtun_host *host)
         setsockopt(s, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)); 
 
         if( bind(s,(struct sockaddr *)&my_addr,sizeof(my_addr)) ){
-	   syslog(LOG_ERR,"Can not bind to the socket");
-	   break;
+	   syslog(LOG_ERR,"Can't bind socket. %s(%d)",
+		strerror(errno), errno);
+	   continue;
         }
 
         /* 
@@ -130,13 +145,8 @@ void client(struct vtun_host *host)
 	}
 	close(s);
 	free_sopt(&host->sopt);
-	
-	/* If persist option is set, sleep and try to reconnect */
-	if( !client_term && vtun.persist > 0 ) 
-	   sleep(5);
-        else
-	   break;
      }
-     syslog(LOG_INFO,"Exit");
+
+     syslog(LOG_INFO, "Exit");
      return;
 }

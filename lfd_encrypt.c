@@ -22,6 +22,12 @@
  */ 
 
 /*
+   Encryption module uses software developed by the OpenSSL Project
+   for use in the OpenSSL Toolkit. (http://www.openssl.org/)       
+   Copyright (c) 1998-2000 The OpenSSL Project.  All rights reserved.
+ */
+
+/*
  * This lfd_encrypt module uses MD5 to create 128 bits encryption
  * keys and BlowFish for actual data encryption.
  * It is based on code written by Chris Todd<christ@insynq.com> with 
