@@ -98,7 +98,7 @@ int connect_t(int s, struct sockaddr *svr, time_t timeout)
 
      FD_ZERO(&fdset);
      FD_SET(s,&fdset);
-     if( select(s+1,NULL,&fdset,NULL,&tv) > 0 ){
+     if( select(s+1,NULL,&fdset,NULL,timeout?&tv:NULL) > 0 ){
         int l=sizeof(errno);	 
         errno=0;
         getsockopt(s,SOL_SOCKET,SO_ERROR,&errno,&l);
