@@ -324,10 +324,18 @@ int run_cmd(void *d, void *opt)
 
 void free_sopt( struct vtun_sopt *opt )
 {
-     if( opt->dev )
+     if( opt->dev ){
 	free(opt->dev);
-     if( opt->laddr )
+        opt->dev = NULL;
+     }
+
+     if( opt->laddr ){
 	free(opt->laddr);
-     if( opt->raddr )
+        opt->laddr = NULL;
+     }
+
+     if( opt->raddr ){
 	free(opt->raddr);
+        opt->raddr = NULL;
+     }
 };
