@@ -82,28 +82,28 @@ int tunnel(struct vtun_host *host)
      switch( host->flags & VTUN_TYPE_MASK ){
 	case VTUN_TTY:
 	   if( (fd[0]=pty_alloc(dev)) < 0 ){
-	      syslog(LOG_ERR,"Can't allocate pseudo tty");
+	      syslog(LOG_ERR,"Can't allocate pseudo tty. %s(%d)", strerror(errno), errno);
 	      return -1;
            }
 	   break;
 
 	case VTUN_PIPE:
 	   if( pipe_alloc(fd) < 0 ){
- 	      syslog(LOG_ERR,"Can't create pipe");
+ 	      syslog(LOG_ERR,"Can't create pipe. %s(%d)", strerror(errno), errno);
    	      return -1;
 	   }
 	   break;
 
 	case VTUN_ETHER:
 	   if( (fd[0]=tap_alloc(dev)) < 0 ){
- 	      syslog(LOG_ERR,"Can't allocate tap device");
+ 	      syslog(LOG_ERR,"Can't allocate tap device. %s(%d)", strerror(errno), errno);
    	      return -1;
 	   }
 	   break;
 
 	case VTUN_TUN:
 	   if( (fd[0]=tun_alloc(dev)) < 0 ){
- 	      syslog(LOG_ERR,"Can't allocate tun device");
+ 	      syslog(LOG_ERR,"Can't allocate tun device. %s(%d)", strerror(errno), errno);
    	      return -1;
 	   }
 	   break;

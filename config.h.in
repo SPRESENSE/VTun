@@ -45,6 +45,9 @@
 /* Define if you have the <sys/sockio.h> header file.  */
 #undef HAVE_SYS_SOCKIO_H
 
+/* Define if you have the <linux/if_tun.h> header file.  */
+#undef HAVE_LINUX_IF_TUN_H
+
 /* Define if you have setproctitle. */
 #undef HAVE_SETPROC_TITLE
 
