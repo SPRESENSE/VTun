@@ -155,6 +155,7 @@ int tun_close(int fd, char *dev)
     }
 
     close(ip_fd); close(fd);
+    return 0;
 }
 
 int tun_write(int fd, char *buf, int len)

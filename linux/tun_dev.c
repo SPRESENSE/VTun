@@ -39,7 +39,7 @@
  * Allocate TUN device, returns opened fd. 
  * Stores dev name in the first arg(must be large enough).
  */  
-int tun_alloc_old(char *dev)
+int tun_open_old(char *dev)
 {
     char tunname[14];
     int i, fd;
@@ -62,13 +62,13 @@ int tun_alloc_old(char *dev)
 
 #ifdef HAVE_LINUX_IF_TUN_H /* New driver support */
 #include <linux/if_tun.h>
-int tun_alloc(char *dev)
+int tun_open(char *dev)
 {
     struct ifreq ifr;
     int fd, err;
 
     if( (fd = open("/dev/net/tun", O_RDWR)) < 0 )
-       return tun_alloc_old(dev);
+       return tun_open_old(dev);
 
     memset(&ifr, 0, sizeof(ifr));
     ifr.ifr_flags = IFF_TUN | IFF_NO_PI;
@@ -83,11 +83,16 @@ int tun_alloc(char *dev)
     return fd;
 }
 #else
-int tun_alloc(char *dev)
+int tun_open(char *dev)
 {
-    return tun_alloc_old(dev);
+    return tun_open_old(dev);
 }
 #endif /* New driver support */
+
+int tun_close(int fd, char *dev)
+{
+    return close(fd);
+}
 
 /* Read/write frames from TUN device */
 int tun_write(int fd, char *buf, int len)

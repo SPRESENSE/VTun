@@ -36,7 +36,7 @@
  * Allocate Ether TAP device, returns opened fd. 
  * Stores dev name in the first arg(must be large enough).
  */ 
-int tap_alloc(char *dev)
+int tap_open(char *dev)
 {
     char tapname[14];
     int i, fd;
@@ -55,6 +55,11 @@ int tap_alloc(char *dev)
        }
     }
     return -1;
+}
+
+int tap_close(int fd, char *dev)
+{
+    return close(fd);
 }
 
 /* Write frames to TAP device */

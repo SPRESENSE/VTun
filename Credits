@@ -95,3 +95,8 @@ Chris Snell <chris@bikeworld.com>
 
 Robert Stone <talby@trap.mtview.ca.us>
 	Security enhancements. Suggestions. Ideas.
+	Encryption and other subsystems rework for 3.X.
+
+Steinar H. Gunderson <sgunderson@bigfoot.com>
+	Several stability fixes. Tons of ideas and suggestions.
+

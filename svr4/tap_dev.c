@@ -122,7 +122,7 @@ int tap_open(char *dev)
 
 int tap_close(int fd, char *dev)
 {
-    close(fd);
+    return close(fd);
 }
 
 int tap_write(int fd, char *buf, int len)
