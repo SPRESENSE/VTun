@@ -28,7 +28,7 @@
 /* Frame alloc/free */
 #define LINKFD_FRAME_RESERV 8
 
-static inline char * lfd_alloc(size_t size)
+static inline void * lfd_alloc(size_t size)
 {
      register char * buf;
 
@@ -40,20 +40,24 @@ static inline char * lfd_alloc(size_t size)
      return buf+LINKFD_FRAME_RESERV; 
 }
 
-static inline char * lfd_realloc(char *buf, size_t size)
+static inline void * lfd_realloc(void *buf, size_t size)
 {
-     buf  -= LINKFD_FRAME_RESERV;
+     unsigned char *ptr = buf;
+
+     ptr  -= LINKFD_FRAME_RESERV;
      size += LINKFD_FRAME_RESERV;
 
-     if( !(buf = realloc(buf, size)) )
+     if( !(ptr = realloc(ptr, size)) )
         return NULL;
 
-     return buf+LINKFD_FRAME_RESERV; 
+     return ptr+LINKFD_FRAME_RESERV; 
 }
 
-static inline void lfd_free(char *buf)
+static inline void lfd_free(void *buf)
 {
-     free(buf-LINKFD_FRAME_RESERV);
+     unsigned char *ptr = buf;
+
+     free(ptr-LINKFD_FRAME_RESERV);
 }
 
 int linkfd(struct vtun_host *host);

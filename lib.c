@@ -341,4 +341,4 @@ void free_sopt( struct vtun_sopt *opt )
 	free(opt->raddr);
         opt->raddr = NULL;
      }
-};
+}

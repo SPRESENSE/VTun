@@ -275,7 +275,7 @@ char *cl2cs(char *chal)
 
 int cs2cl(char *str, char *chal)
 {
-     register unsigned char *ptr = str;
+     register char *ptr = str;
      register int i;
 
      if( !(ptr = strchr(str,'<')) ) 
