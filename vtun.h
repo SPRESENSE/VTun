@@ -89,6 +89,7 @@ struct vtun_host {
    llist down;
 
    int  flags;
+   int  timeout;
    int  spd_in;
    int  spd_out;
    int  zlevel;
@@ -152,8 +153,8 @@ extern llist host_list;
 
 /* Global options */
 struct vtun_opts {
-   int timeout;
-   int persist;
+   int  timeout;
+   int  persist;
 
    char *cfg_file;
 

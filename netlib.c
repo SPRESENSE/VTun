@@ -140,9 +140,9 @@ unsigned long getifaddr(char * ifname)
 
 /* 
  * Establish UDP session with host connected to fd(socket).
- * Returns connected UDP socket or -1 on error. 
+ * Returns connected UDP socket or -1 on error.
  */
-int udp_session(struct vtun_host *host, time_t timeout) 
+int udp_session(struct vtun_host *host) 
 {
      struct sockaddr_in saddr; 
      short port;
@@ -178,7 +178,7 @@ int udp_session(struct vtun_host *host, time_t timeout)
      host->sopt.lport = htons(port);
 
      /* Read port of the other's end UDP socket */
-     if( readn_t(host->rmt_fd,&port,sizeof(short),timeout) < 0 ){
+     if( readn_t(host->rmt_fd,&port,sizeof(short),host->timeout) < 0 ){
         syslog(LOG_ERR,"Can't read port number %s", strerror(errno));
         return -1;
      }

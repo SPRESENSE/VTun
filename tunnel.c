@@ -125,7 +125,7 @@ int tunnel(struct vtun_host *host)
 	   break;
 
         case VTUN_UDP:
-	   if( (opt = udp_session(host, VTUN_TIMEOUT)) == -1){
+	   if( (opt = udp_session(host)) == -1){
 	      syslog(LOG_ERR,"Can't establish UDP session");
 	      close(fd[0]); close(fd[1]);
 	      return 0;
