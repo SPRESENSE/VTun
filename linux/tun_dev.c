@@ -28,6 +28,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <syslog.h>
+#include <errno.h>
 
 #include <sys/ioctl.h>
 #include <sys/socket.h>
@@ -63,26 +64,44 @@ int tun_open_old(char *dev)
 
 #ifdef HAVE_LINUX_IF_TUN_H /* New driver support */
 #include <linux/if_tun.h>
+
+/* pre 2.4.6 compatibility */
+#define OTUNSETNOCSUM  (('T'<< 8) | 200) 
+#define OTUNSETDEBUG   (('T'<< 8) | 201) 
+#define OTUNSETIFF     (('T'<< 8) | 202) 
+#define OTUNSETPERSIST (('T'<< 8) | 203) 
+#define OTUNSETOWNER   (('T'<< 8) | 204)
+
 int tun_open(char *dev)
 {
     struct ifreq ifr;
-    int fd, err;
+    int fd;
 
-    if( (fd = open("/dev/net/tun", O_RDWR)) < 0 )
+    if ((fd = open("/dev/net/tun", O_RDWR)) < 0)
        return tun_open_old(dev);
 
     memset(&ifr, 0, sizeof(ifr));
     ifr.ifr_flags = IFF_TUN | IFF_NO_PI;
-    if( *dev )
+    if (*dev)
        strncpy(ifr.ifr_name, dev, IFNAMSIZ);
 
-    if( (err = ioctl(fd, TUNSETIFF, (void *) &ifr)) < 0 ){
-       close(fd);
-       return err;
+    if (ioctl(fd, TUNSETIFF, (void *) &ifr) < 0) {
+       if (errno == EBADFD) {
+	  /* Try old ioctl */
+ 	  if (ioctl(fd, OTUNSETIFF, (void *) &ifr) < 0) 
+	     goto failed;
+       } else
+          goto failed;
     } 
+
     strcpy(dev, ifr.ifr_name);
     return fd;
+
+failed:
+    close(fd);
+    return -1;
 }
+
 #else
 int tun_open(char *dev)
 {
