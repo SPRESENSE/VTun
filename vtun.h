@@ -171,6 +171,7 @@ struct vtun_opts {
    char *svr_name;       /* Server's host name */
    int  svr_port;	 /* Server's port */
    int  svr_type;	 /* Server mode */
+   int  syslog; 	 /* Facility to log messages to syslog under */
 };
 #define VTUN_STAND_ALONE	0 
 #define VTUN_INETD		1	

@@ -71,6 +71,7 @@ int main(int argc, char *argv[], char *env[])
      vtun.svr_name = NULL;
      vtun.svr_port = -1;
      vtun.svr_type = -1;
+     vtun.syslog   = LOG_DAEMON;
 
      /* Initialize default host options */
      memset(&default_host, 0, sizeof(default_host));
@@ -111,6 +112,12 @@ int main(int argc, char *argv[], char *env[])
 	}
      }	
      reread_config(0);
+
+     if (vtun.syslog != LOG_DAEMON) {
+	/* Restart logging to syslog using specified facility  */
+ 	closelog();
+ 	openlog("vtund", LOG_PID|LOG_NDELAY|LOG_PERROR, vtun.syslog);
+     }
 
      if(!svr){
 	if( argc - optind < 2 ){

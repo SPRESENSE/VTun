@@ -55,8 +55,11 @@ mode (\fBstand\fR), that is the default, or be invoked from
 server port number to listen on or connect to.
 By default, \fBvtund\fR(8) uses port 5000.
 
-.IP \fBtimeout\ \fIsecounds\fR
+.IP \fBtimeout\ \fIseconds\fR
 General timeout.
+
+.IP \fBsyslog\fR\ \fBnumber\fR|\fBname\fR
+syslog facility specification, either numeric or name (from syslog (3)).
 
 .IP \fBppp\ \fIpath\fR
 path to \fBpppd\fR(8) program.  Can be used in session sections.
@@ -250,6 +253,7 @@ time or are used only on the server side.
 .BR ifconfig (8),
 .BR route (8),
 .BR pppd (8),
+.BR syslog (3),
 .BR zlib (3).
 
 .SH AUTHOR
