@@ -128,7 +128,9 @@ Format:
 .SH SIGNALS
 .TP
 .B SIGHUP
-This signal causes vtund(server mode) to reread config file. 
+Server mode: Causes vtund to reread the config file.
+.br
+Client mode: Causes vtund to reestablish the connection.
 .TP
 .B SIGUSR1
 This signal causes vtund to reset statistic counters. 
