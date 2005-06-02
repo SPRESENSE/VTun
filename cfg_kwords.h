@@ -17,7 +17,7 @@
  */
 
 /*
- * cfg_kwords.h,v 1.1.1.1.2.3 2001/12/29 17:01:01 bergolth Exp
+ * $Id$
  */ 
 
 extern int lineno;
