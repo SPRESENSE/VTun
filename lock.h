@@ -19,6 +19,7 @@
 /*
  * $Id$
  */ 
+
 #ifndef _VTUN_LOCK_H
 #define _VTUN_LOCK_H
 

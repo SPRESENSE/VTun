@@ -17,7 +17,7 @@
  */
 
 /*
- * tunnel.c,v 1.5.2.7 2002/04/25 09:19:50 bergolth Exp
+ * $Id$
  */ 
 
 #include "config.h"

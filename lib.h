@@ -17,7 +17,7 @@
  */
 
 /*
- * lib.h,v 1.2.2.4 2002/04/25 09:19:50 bergolth Exp
+ * $Id$
  */ 
 #ifndef _VTUN_LIB_H
 #define _VTUN_LIB_H

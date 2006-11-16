@@ -17,8 +17,9 @@
  */
 
 /*
- * vtun.h,v 1.7.2.6.2.3.4.1 2005/06/02 13:28:54 mtbishop Exp
+ * $Id$
  */ 
+
 #ifndef _VTUN_H
 #define _VTUN_H
 

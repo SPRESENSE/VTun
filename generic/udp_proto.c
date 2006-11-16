@@ -17,7 +17,7 @@
  */
 
 /*
- * udp_proto.c,v 1.5.2.1 2000/12/19 17:10:07 maxk Exp
+ * $Id$
  */ 
 
 #include "config.h"

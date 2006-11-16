@@ -17,7 +17,7 @@
  */
 
 /*
- * netlib.c,v 1.7.2.4 2002/04/25 09:19:50 bergolth Exp
+ * $Id$
  */ 
 
 #include "config.h"

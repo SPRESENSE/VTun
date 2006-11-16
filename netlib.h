@@ -17,8 +17,9 @@
  */
 
 /*
- * netlib.h,v 1.2.2.1 2000/09/21 18:40:26 maxk Exp
+ * $Id$
  */ 
+
 #ifndef _VTUN_NETDEV_H
 #define _VTUN_NETDEV_H
 

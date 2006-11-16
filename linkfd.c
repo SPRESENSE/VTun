@@ -17,7 +17,7 @@
  */
 
 /*
- * linkfd.c,v 1.4.2.11 2002/04/25 09:19:50 bergolth Exp
+ * $Id$
  */
 
 #include "config.h"
