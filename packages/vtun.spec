@@ -10,8 +10,8 @@
 
 # define variables here for older RPM versions.
 %define name	vtun
-%define version	2.9.91
-%define release	4
+%define version	3.0.0
+%define release	1
 
 # expansion of the previous part.
 # get the distro mark (eg rh70)
