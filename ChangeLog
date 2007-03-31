@@ -1,4 +1,7 @@
 
+Devel:
+	New debian init scripts (surgo)
+	
 3.0.0:
 	Configure looks for liblzo2 when available. (bc)
 	
