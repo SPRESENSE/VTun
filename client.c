@@ -17,7 +17,7 @@
  */
 
 /*
- * client.c,v 1.5.2.8.2.1 2006/11/16 04:02:48 mtbishop Exp
+ * $Id$
  */ 
 
 #include "config.h"

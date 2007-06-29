@@ -17,7 +17,7 @@
  */
 
 /*
- * driver.h,v 1.1.1.1.2.1.2.1 2006/11/16 04:02:57 mtbishop Exp
+ * $Id$
  */ 
 #ifndef _DRIVER_H
 #define _DRIVER_H

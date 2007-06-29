@@ -17,7 +17,7 @@
  */
 
 /*
- * vtun_socks.h,v 1.1.1.1.6.1 2006/11/16 04:04:20 mtbishop Exp
+ * $Id$
  */ 
 
 #ifndef _VTUN_SOCKS_H

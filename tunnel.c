@@ -17,7 +17,7 @@
  */
 
 /*
- * tunnel.c,v 1.5.2.8.2.2 2006/11/16 04:03:56 mtbishop Exp
+ * $Id$
  */ 
 
 #include "config.h"

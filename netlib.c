@@ -17,7 +17,7 @@
  */
 
 /*
- * netlib.c,v 1.7.2.4.2.2 2006/11/16 04:03:47 mtbishop Exp
+ * $Id$
  */ 
 
 #include "config.h"

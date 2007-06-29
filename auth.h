@@ -17,7 +17,7 @@
  */
 
 /*
- * auth.h,v 1.1.1.2.6.1 2006/11/16 04:02:36 mtbishop Exp
+ * $Id$
  */ 
 
 #define VTUN_CHAL_SIZE	 16	

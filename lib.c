@@ -17,7 +17,7 @@
  */
 
 /*
- * lib.c,v 1.1.1.2.2.9.2.1 2006/11/16 04:03:17 mtbishop Exp
+ * $Id$
  */ 
 
 #include "config.h"

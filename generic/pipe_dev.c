@@ -17,7 +17,7 @@
  */
 
 /*
- * pipe_dev.c,v 1.1.1.1.2.1.2.1 2006/11/16 04:04:26 mtbishop Exp
+ * $Id$
  */ 
 
 #include "config.h"

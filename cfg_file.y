@@ -18,7 +18,7 @@
  */
 
 /*
- * cfg_file.y,v 1.1.1.2.2.13.2.4 2006/11/16 04:02:42 mtbishop Exp
+ * $Id$
  */ 
 
 #include "config.h"
@@ -149,7 +149,7 @@ option:  '\n'
   | K_BINDADDR '{' bindaddr_option '}'
 
   | K_IFACE STRING	{ 
-			  if(vtun.svr_addr == -1)
+			  if(vtun.svr_addr == NULL)
 			    vtun.svr_addr = strdup($2);
 			} 
 
@@ -621,6 +621,7 @@ int parse_syslog(char *facility)
          return(0);
       }
    }
+   return -1;
 }
 
 /* 

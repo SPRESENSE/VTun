@@ -17,7 +17,7 @@
  */
 
 /*
- * compat.h,v 1.1.1.2.6.1 2006/11/16 04:02:51 mtbishop Exp
+ * $Id$
  */ 
 #ifndef _VTUN_COMPAT_H
 #define _VTUN_COMPAT_H

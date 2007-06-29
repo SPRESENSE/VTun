@@ -17,7 +17,7 @@
  */
 
 /*
- * lib.h,v 1.2.2.5.2.1 2006/11/16 04:03:20 mtbishop Exp
+ * $Id$
  */ 
 #ifndef _VTUN_LIB_H
 #define _VTUN_LIB_H

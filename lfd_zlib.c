@@ -17,7 +17,7 @@
  */
 
 /*
- * lfd_zlib.c,v 1.1.1.2.2.6.2.1 2006/11/16 04:03:14 mtbishop Exp
+ * $Id$
  */ 
 
 /* ZLIB compression module */

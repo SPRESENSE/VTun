@@ -17,7 +17,7 @@
  */
 
 /*
- * netlib.h,v 1.2.2.1.2.2 2006/11/16 04:03:50 mtbishop Exp
+ * $Id$
  */ 
 
 #ifndef _VTUN_NETDEV_H

@@ -18,7 +18,7 @@
  */
 
 /*
- * llist.c,v 1.1.1.2.6.1 2006/11/16 04:03:29 mtbishop Exp
+ * $Id$
  */ 
 
 #include <stdlib.h>

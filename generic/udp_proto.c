@@ -17,7 +17,7 @@
  */
 
 /*
- * udp_proto.c,v 1.5.2.3.2.1 2006/11/16 04:04:43 mtbishop Exp
+ * $Id$
  */ 
 
 #include "config.h"

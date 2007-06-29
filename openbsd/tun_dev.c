@@ -17,7 +17,7 @@
  */
 
 /*
- * tun_dev.c,v 1.3.2.1.2.1 2006/11/16 04:04:52 mtbishop Exp
+ * $Id$
  */ 
 
 #include "config.h"

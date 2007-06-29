@@ -17,7 +17,7 @@
  */
 
 /*
- * lock.h,v 1.1.1.1.6.1 2006/11/16 04:03:38 mtbishop Exp
+ * $Id$
  */ 
 
 #ifndef _VTUN_LOCK_H

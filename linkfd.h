@@ -17,7 +17,7 @@
  */
 
 /*
- * linkfd.h,v 1.1.1.2.2.2.2.3 2006/11/16 04:03:26 mtbishop Exp
+ * $Id$
  */ 
 
 #ifndef _LINKFD_H
