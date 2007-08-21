@@ -180,7 +180,10 @@ char *bf2cf(struct vtun_host *host)
      return str;
 }
 
-/* return 1 on success, otherwise 0 */
+/* return 1 on success, otherwise 0 
+   Example:
+   FLAGS: <TuE1>
+*/
 
 int cf2bf(char *str, struct vtun_host *host)
 {
@@ -229,10 +232,17 @@ int cf2bf(char *str, struct vtun_host *host)
 		ptr = p;
 		break;
 	     case 'E':
-		if((s = strtol(ptr,&p,10)) == ERANGE || ptr == p) 
+	        /* new form is 'E10', old form is 'E', so remove the
+		   ptr==p check */
+	        if((s = strtol(ptr,&p,10)) == ERANGE)
 		   return 0;
 		host->flags |= VTUN_ENCRYPT;
-		host->cipher = s; 
+		if (0 == s) {
+		   host->cipher = VTUN_LEGACY_ENCRYPT;
+		   vtun_syslog(LOG_INFO,"Remote server using older encryption.";
+		} else {
+		   host->cipher = s; 
+		}
 		ptr = p;
 		break;
      	     case 'S':
