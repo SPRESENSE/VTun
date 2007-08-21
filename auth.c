@@ -251,6 +251,9 @@ int cf2bf(char *str, struct vtun_host *host)
 		}
 		ptr = p;
 		break;
+	     case 'F':
+	        /* reserved for Feature transmit */
+	       break;
 	     case '>':
 	        return 1;
 	     default:
