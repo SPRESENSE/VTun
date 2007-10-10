@@ -87,6 +87,7 @@ struct lfd_mod {
 extern struct lfd_mod lfd_zlib;
 extern struct lfd_mod lfd_lzo;
 extern struct lfd_mod lfd_encrypt;
+extern struct lfd_mod lfd_legacy_encrypt;
 extern struct lfd_mod lfd_shaper;
 
 #endif

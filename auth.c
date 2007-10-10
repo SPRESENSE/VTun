@@ -239,7 +239,7 @@ int cf2bf(char *str, struct vtun_host *host)
 		host->flags |= VTUN_ENCRYPT;
 		if (0 == s) {
 		   host->cipher = VTUN_LEGACY_ENCRYPT;
-		   vtun_syslog(LOG_INFO,"Remote server using older encryption.";
+		   vtun_syslog(LOG_INFO,"Remote server using older encryption.");
 		} else {
 		   host->cipher = s; 
 		}
