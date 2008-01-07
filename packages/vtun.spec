@@ -14,7 +14,7 @@
 
 # define variables here for older RPM versions.
 %define name	vtun
-%define version	3.0.1
+%define version	3.0.2
 %define release	1
 
 # expansion of the previous part.
