@@ -137,3 +137,6 @@ Dale Fountain <dpf-vtun@fountainbay.com>
 Alan Grow <agrow-at-thegotonerd.com>
 	Added a Listening Address/Interface (rfe936523)
 	Cleaned up the code around that portion of the config.
+
+Hans Carlos Hoffman <hchs.de>
+	Inventive method for vtund3c->vtund2s encryption (rfe1685781)
