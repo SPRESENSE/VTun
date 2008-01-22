@@ -75,6 +75,8 @@ BuildRequires:  %{_bindir}/gcc
 %define	_buildreq_fc	zlib-devel %{!?_without_ssl:openssl-devel} %{?_with_lzo2:lzo2-devel} %{!?_with_lzo2:%{!?_without_lzo: lzo-devel}}
 %define	_requires_rhel	%_requires_fc
 %define	_buildreq_rhel	%_buildreq_fc
+%define	_requires_centos	%_requires_fc
+%define	_buildreq_centos	%_buildreq_fc
 
 # SuSE doesn't permit lzo and lzo2 to be installed simultaneously so
 # we do not need to care so much.
