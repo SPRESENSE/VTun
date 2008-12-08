@@ -569,6 +569,12 @@ int free_host(void *d, void *u)
    llist_free(&h->down, free_cmd, NULL);
 
    free_addr(h);
+
+   /* releases only host struct instances which were
+    * allocated in the case of K_HOST except default_host */
+   if( h->passwd )
+      free(h);
+
  
    return 0;   
 }
