@@ -133,6 +133,8 @@ int main(int argc, char *argv[], char *env[])
  	openlog("vtund", LOG_PID|LOG_NDELAY|LOG_PERROR, vtun.syslog);
      }
 
+	clear_nat_hack_flags(svr);
+
      if(!svr){
 	if( argc - optind < 2 ){
 	   usage();

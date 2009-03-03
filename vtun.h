@@ -163,6 +163,17 @@ extern llist host_list;
 #define VTUN_STAT	0x1000
 #define VTUN_PERSIST    0x2000
 
+#ifdef ENABLE_NAT_HACK
+/* Flags for the NAT hack with delayed UDP socket connect */
+#define VTUN_NAT_HACK_CLIENT	0x4000
+#define VTUN_NAT_HACK_SERVER	0x8000
+#define VTUN_NAT_HACK_MASK	(VTUN_NAT_HACK_CLIENT | VTUN_NAT_HACK_SERVER)
+
+#define VTUN_USE_NAT_HACK(host)	((host)->flags & VTUN_NAT_HACK_MASK)
+#else
+#define VTUN_USE_NAT_HACK(host)	0
+#endif
+
 /* Constants and flags for VTun protocol */
 #define VTUN_FRAME_SIZE     2048
 #define VTUN_FRAME_OVERHEAD 100
