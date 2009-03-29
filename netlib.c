@@ -138,7 +138,6 @@ unsigned long getifaddr(char * ifname)
      return addr.sin_addr.s_addr;
 }
 
-int is_rmt_fd_connected=1; 
 /* 
  * Establish UDP session with host connected to fd(socket).
  * Returns connected UDP socket or -1 on error.
@@ -191,6 +190,12 @@ int udp_session(struct vtun_host *host)
      }
 
      saddr.sin_port = port;
+
+     /* if the config says to delay the UDP connection, we wait for an
+	incoming packet and then force a connection back.  We need to
+	put this here because we need to keep that incoming triggering
+	packet and pass it back up the chain. */
+
      if (VTUN_USE_NAT_HACK(host))
      	is_rmt_fd_connected=0;
 	else {
