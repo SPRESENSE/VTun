@@ -190,10 +190,22 @@ int udp_session(struct vtun_host *host)
      }
 
      saddr.sin_port = port;
+
+     /* if the config says to delay the UDP connection, we wait for an
+	incoming packet and then force a connection back.  We need to
+	put this here because we need to keep that incoming triggering
+	packet and pass it back up the chain. */
+
+     if (VTUN_USE_NAT_HACK(host))
+     	is_rmt_fd_connected=0;
+	else {
      if( connect(s,(struct sockaddr *)&saddr,sizeof(saddr)) ){
         vtun_syslog(LOG_ERR,"Can't connect socket");
         return -1;
      }
+     is_rmt_fd_connected=1;
+	}
+     
      host->sopt.rport = htons(port);
 
      /* Close TCP socket and replace with UDP socket */	

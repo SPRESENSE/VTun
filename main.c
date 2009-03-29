@@ -50,9 +50,12 @@ void usage(void);
 extern int optind,opterr,optopt;
 extern char *optarg;
 
+/* for the NATHack bit.  Is our UDP session connected? */
+int is_rmt_fd_connected=1; 
+
 int main(int argc, char *argv[], char *env[])
 {
-     int svr, daemon, sock, dofork, fd, opt;
+  int svr, daemon, sock, dofork, fd, opt;
      struct vtun_host *host = NULL;
      struct sigaction sa;
      char *hst;
@@ -132,6 +135,8 @@ int main(int argc, char *argv[], char *env[])
  	closelog();
  	openlog("vtund", LOG_PID|LOG_NDELAY|LOG_PERROR, vtun.syslog);
      }
+
+	clear_nat_hack_flags(svr);
 
      if(!svr){
 	if( argc - optind < 2 ){
