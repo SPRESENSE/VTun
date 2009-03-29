@@ -147,6 +147,7 @@ int udp_session(struct vtun_host *host)
      struct sockaddr_in saddr; 
      short port;
      int s,opt;
+     extern int is_rmt_fd_connected;
 
      if( (s=socket(AF_INET,SOCK_DGRAM,0))== -1 ){
         vtun_syslog(LOG_ERR,"Can't create socket");
