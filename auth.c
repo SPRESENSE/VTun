@@ -169,8 +169,13 @@ char *bf2cf(struct vtun_host *host)
      if( host->flags & VTUN_KEEP_ALIVE )
 	*(ptr++) = 'K';
 
-     if( host->flags & VTUN_ENCRYPT )
-	ptr += sprintf(ptr,"E%d", host->cipher);
+     if( host->flags & VTUN_ENCRYPT ) {
+        if (host->cipher == VTUN_LEGACY_ENCRYPT) { /* use old flag method */
+	   ptr += sprintf(ptr,"E");
+	} else {
+	   ptr += sprintf(ptr,"E%d", host->cipher);
+	}
+     }
 
      strcat(ptr,">");
 
