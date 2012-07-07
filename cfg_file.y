@@ -377,7 +377,7 @@ keepalive:
 			  if( yylval.dnum.num1 ){
 			     parse_host->flags |= VTUN_KEEP_ALIVE;
 			     parse_host->ka_interval = yylval.dnum.num1;
-		             parse_host->ka_failure  = yylval.dnum.num2;
+		             parse_host->ka_maxfail  = yylval.dnum.num2;
 			  }
   			}
 

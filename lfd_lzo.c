@@ -35,6 +35,7 @@
 
 #ifdef HAVE_LZO
 
+#include "lzoutil.h"
 #include "lzo1x.h"
 #include "lzoutil.h"
 
@@ -54,7 +55,7 @@ int (*lzo1x_compress)(const lzo_byte *src, lzo_uint  src_len,
 int alloc_lzo(struct vtun_host *host)
 {
      int zlevel = host->zlevel ? host->zlevel : 1;
-     int mem;
+     lzo_uint mem;
 
      switch( zlevel ){
 	case 9:
