@@ -49,6 +49,7 @@
 #include "auth.h"
 
 #include "compat.h"
+#include "netlib.h"
 
 static volatile sig_atomic_t server_term;
 static void sig_term(int sig)
