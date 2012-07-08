@@ -321,13 +321,13 @@ host_option: '\n'
 			  parse_host->flags |= $2;
 			}
 			
-  | K_NAT_HACK NUM 		{  
-              #ifdef ENABLE_NAT_HACK
-			  	parse_host->flags &= ~VTUN_NAT_HACK_MASK;
-			  	parse_host->flags |= $2;
-			  #else
-			  	cfg_error("This vtund binary was built with the NAT hack disabled for security purposes.");
-			  #endif
+  | K_NAT_HACK NUM 	{  
+#ifdef ENABLE_NAT_HACK
+			  parse_host->flags &= ~VTUN_NAT_HACK_MASK;
+			  parse_host->flags |= $2;
+#else
+			  cfg_error("This vtund binary was built with the NAT hack disabled for security purposes.");
+#endif
 			}
 
   | K_SRCADDR 		'{' srcaddr_options '}'
