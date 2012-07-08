@@ -92,7 +92,7 @@ int main(int argc, char *argv[], char *env[])
      /* Start logging to syslog and stderr */
      openlog("vtund", LOG_PID | LOG_NDELAY | LOG_PERROR, LOG_DAEMON);
 
-     while( (opt=getopt(argc,argv,"misf:P:L:t:np")) != EOF ){
+     while( (opt=getopt(argc,argv,"misf:P:L:t:npq")) != EOF ){
 	switch(opt){
 	    case 'm':
 	        if (mlockall(MCL_CURRENT | MCL_FUTURE) < 0) {
@@ -123,6 +123,9 @@ int main(int argc, char *argv[], char *env[])
 	    case 't':
 	        vtun.timeout = atoi(optarg);	
 	        break;
+	    case 'q':
+		vtun.quiet = 1;
+		break;
 	    default:
 		usage();
 	        exit(1);
