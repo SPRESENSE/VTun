@@ -51,6 +51,7 @@ struct vtun_sopt {
     int  lport;
     char *raddr;
     int  rport;
+    char *host;
 };
 
 struct vtun_stat {

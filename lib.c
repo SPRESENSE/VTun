@@ -185,6 +185,9 @@ char * subst_opt(char *str, struct vtun_sopt *opt)
 		   sprintf(buf,"%d",opt->rport);
                    optr=buf;
                    break;
+	        case 'h':
+		   optr=opt->host;
+		   break;
                 default:
                    sp++;
                    continue;
