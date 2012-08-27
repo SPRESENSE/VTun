@@ -24,7 +24,7 @@
 
 /* Definitions for device and protocol drivers 
  * Interface will be completely rewritten in 
- * version 3.0
+ * future versions.
  */
 
 extern int (*dev_write)(int fd, char *buf, int len);
