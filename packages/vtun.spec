@@ -46,6 +46,8 @@ Summary: 	Virtual tunnel over TCP/IP networks.
 Summary(pl):	Wirtualne tunele poprzez sieci TCP/IP
 Vendor: 	Maxim Krasnyansky <max_mk@yahoo.com>
 Packager: 	Bishop Clark (LC957) <bishop@platypus.bc.ca>
+
+		# Remember this is ignored for recent distros (Backward Compatibility is dumb)
 BuildRoot: 	%{?_tmppath:%{_tmppath}}%{!?_tmppath:%{tmpdir}}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes: 	vppp
 BuildRequires:  autoconf
