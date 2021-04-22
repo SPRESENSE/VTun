@@ -22,6 +22,8 @@
 #ifndef _VTUN_COMPAT_H
 #define _VTUN_COMPAT_H
 
+#include "compat_nuttx.h"
+
 #ifndef LOG_PERROR
 #define LOG_PERROR 0
 #endif

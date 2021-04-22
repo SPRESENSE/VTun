@@ -64,14 +64,20 @@ void client(struct vtun_host *host)
      memset(&sa,0,sizeof(sa));     
      sa.sa_handler=SIG_IGN;
      sa.sa_flags = SA_NOCLDWAIT;
+#ifndef VTUN_NUTTX
      sigaction(SIGHUP,&sa,NULL);
      sigaction(SIGQUIT,&sa,NULL);
+#endif
      sigaction(SIGPIPE,&sa,NULL);
      sigaction(SIGCHLD,&sa,NULL);
 
      sa.sa_handler=sig_term;
+#ifdef SIGTERM
      sigaction(SIGTERM,&sa,NULL);
+#endif
+#ifdef SIGINT
      sigaction(SIGINT,&sa,NULL);
+#endif
  
      client_term = 0; reconnect = 0;
      while( (!client_term) || (client_term == VTUN_SIG_HUP) ){

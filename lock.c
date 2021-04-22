@@ -38,6 +38,11 @@
 #include "lib.h" 
 #include "lock.h"
 
+#ifdef VTUN_NUTTX
+extern int link(FAR const char *path1, FAR const char *path2);
+extern int unlink(FAR const char *pathname);
+#endif
+
 int create_lock(char * file)
 {
   char tmp_file[255], str[20];
@@ -123,10 +128,12 @@ int lock_host(struct vtun_host * host)
      switch( host->multi ){
 	case VTUN_MULTI_KILL:
            vtun_syslog(LOG_INFO, "Killing old connection (process %d)", pid);
+#ifdef SIGTERM
            if( kill(pid, SIGTERM) < 0 && errno != ESRCH ){
               vtun_syslog(LOG_ERR, "Can't kill process %d. %s",pid,strerror(errno));
               return -1;
            }
+#endif
            /* Give it a time(up to 5 secs) to terminate */
 	   for(i=0; i < 10 && !kill(pid, 0); i++ ){
               tm.tv_sec = 0; tm.tv_nsec = 500000000; 
@@ -134,12 +141,14 @@ int lock_host(struct vtun_host * host)
 	   }
 
 	   /* Make sure it's dead */		 
+#ifdef SIGKILL
            if( !kill(pid, SIGKILL) ){
               vtun_syslog(LOG_ERR, "Process %d ignored TERM, killed with KILL", pid);
    	      /* Remove lock */
               if( unlink(lock_file) < 0 )
                  vtun_syslog(LOG_ERR, "Unable to remove lock %s", lock_file);
 	   }
+#endif
 
 	   break;
         case VTUN_MULTI_DENY:

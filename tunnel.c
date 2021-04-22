@@ -70,7 +70,11 @@ int (*proto_read)(int fd, char *buf);
    
 int tunnel(struct vtun_host *host)
 {
+#ifdef HAVE_WORKING_FORK
      int null_fd, pid, opt;
+#else
+     int opt;
+#endif
      int fd[2]={-1, -1};
      char dev[VTUN_DEV_LEN]="";
      int interface_already_open = 0;

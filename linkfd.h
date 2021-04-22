@@ -23,6 +23,9 @@
 #ifndef _LINKFD_H
 #define _LINKFD_H
 
+#include <stdlib.h>
+#include <string.h>
+
 /* Priority of the process in the link_fd function */
 /* Never set the priority to -19 without stating a good reason.
  *#define LINKFD_PRIO -19

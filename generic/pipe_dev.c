@@ -38,7 +38,11 @@
  */  
 int pipe_open(int *fd)
 {
+#ifndef VTUN_NUTTX
     return socketpair(AF_UNIX, SOCK_STREAM, 0, fd);
+#else
+    return -1;
+#endif
 }
 
 /* Write frames to pipe */

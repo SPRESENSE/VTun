@@ -58,9 +58,13 @@
 /* Encryption and Decryption of the challenge key */
 #ifdef HAVE_SSL
 
+#ifdef VTUN_NUTTX
+#include "compat.h"
+#else
 #include <openssl/md5.h>
 #include <openssl/blowfish.h>
 #include <openssl/rand.h>
+#endif
 
 static void gen_chal(char *buf)
 {

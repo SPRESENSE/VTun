@@ -51,6 +51,10 @@
 #include <netinet/tcp.h>
 #endif
 
+#ifdef VTUN_NUTTX
+#include <arpa/inet.h>
+#endif
+
 #include "vtun.h"
 #include "lib.h"
 

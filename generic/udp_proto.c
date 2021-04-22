@@ -53,8 +53,16 @@
 #include <netinet/udp.h>
 #endif
 
+#ifdef VTUN_NUTTX
+#include <arpa/inet.h>
+#endif
+
 #include "vtun.h"
 #include "lib.h"
+
+#ifdef VTUN_NUTTX
+#include "compat.h"
+#endif
 
 extern int is_rmt_fd_connected; 
 

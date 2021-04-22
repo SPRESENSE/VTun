@@ -50,7 +50,9 @@
 struct vtun_opts vtun;
 struct vtun_host default_host;
 
+#ifdef HAVE_WORKING_FORK
 static void write_pid(void);
+#endif
 static void reread_config(int sig);
 static void usage(void);
 
@@ -107,12 +109,14 @@ int main(int argc, char *argv[], char *env[])
 
      while( (opt=getopt(argc,argv,OPTSTRING SERVOPT_STRING)) != EOF ){
 	switch(opt){
+#ifndef VTUN_NUTTX
 	    case 'm':
 	        if (mlockall(MCL_CURRENT | MCL_FUTURE) < 0) {
 		    perror("Unable to mlockall()");
 		    exit(-1);
 	        }
 		break;
+#endif
 	    case 'i':
 		vtun.svr_type = VTUN_INETD;
 #ifdef HAVE_WORKING_FORK
@@ -242,6 +246,7 @@ int main(int argc, char *argv[], char *env[])
      return 0;
 }
 
+#ifdef HAVE_WORKING_FORK
 /* 
  * Very simple PID file creation function. Used by server.
  * Overrides existing file. 
@@ -258,6 +263,7 @@ static void write_pid(void)
      fprintf(f,"%d",(int)getpid());
      fclose(f);
 }
+#endif
 
 static void reread_config(int sig)
 {

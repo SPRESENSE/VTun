@@ -52,19 +52,27 @@
 #include "netlib.h"
 
 static volatile sig_atomic_t server_term;
+#ifdef HAVE_WORKING_FORK
 static void sig_term(int sig)
 {
      vtun_syslog(LOG_INFO,"Terminated");
      server_term = VTUN_SIG_TERM;
 }
+#endif
 
 static void connection(int sock)
 {
      struct sockaddr_in my_addr, cl_addr;
      struct vtun_host *host;
+#ifndef VTUN_NUTTX	
      struct sigaction sa;
+#endif
      char *ip;
+#ifdef VTUN_NUTTX
+     socklen_t opt;
+#else
      int opt;
+#endif
 
      opt = sizeof(struct sockaddr_in);
      if( getpeername(sock, (struct sockaddr *) &cl_addr, &opt) ){
@@ -82,9 +90,11 @@ static void connection(int sock)
      io_init();
 
      if( (host=auth_server(sock)) ){	
+#ifndef VTUN_NUTTX	
         sa.sa_handler=SIG_IGN;
 	sa.sa_flags=SA_NOCLDWAIT;;
         sigaction(SIGHUP,&sa,NULL);
+#endif
 
 	vtun_syslog(LOG_INFO,"Session %s[%s:%d] opened", host->host, ip, 
 					ntohs(cl_addr.sin_port) );
@@ -150,7 +160,9 @@ static void listener(void)
      sa.sa_flags = SA_NOCLDWAIT;
      sa.sa_handler=sig_term;
      sigaction(SIGTERM,&sa,NULL);
+#ifdef SIGINT
      sigaction(SIGINT,&sa,NULL);
+#endif
      server_term = 0;
 
      set_title("waiting for connections on port %d", vtun.bind_addr.port);
@@ -181,8 +193,12 @@ void server(int sock)
 
      sa.sa_handler=SIG_IGN;
      sa.sa_flags=SA_NOCLDWAIT;;
+#ifdef SIGINT
      sigaction(SIGINT,&sa,NULL);
+#endif
+#ifndef VTUN_NUTTX
      sigaction(SIGQUIT,&sa,NULL);
+#endif
      sigaction(SIGCHLD,&sa,NULL);
      sigaction(SIGPIPE,&sa,NULL);
      sigaction(SIGUSR1,&sa,NULL);

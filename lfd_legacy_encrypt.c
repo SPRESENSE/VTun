@@ -50,9 +50,14 @@
 #ifdef HAVE_SSL
 
 #ifndef __APPLE_CC__
+
+#ifdef VTUN_NUTTX
+#include "compat.h"
+#else
 /* OpenSSL includes */
 #include <openssl/md5.h>
 #include <openssl/blowfish.h>
+#endif
 #else /* YAY - We're MAC OS */
 #include <sys/md5.h>
 #include <crypto/blowfish.h>
@@ -77,7 +82,7 @@ static int alloc_legacy_encrypt(struct vtun_host *host)
    return 0;
 }
 
-static int free_legacy_encrypt()
+static int free_legacy_encrypt(void)
 {
    lfd_free(enc_buf); enc_buf = NULL;
    return 0;
