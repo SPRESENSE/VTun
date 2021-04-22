@@ -1,5 +1,5 @@
 
--.-.-
+3.0.4
 	bug53 - Race condition in socket() vs syslog (AH)
 	patch23 - check for fork and work around lack (AM)
 	patch22 - static declarations where possible (AM)

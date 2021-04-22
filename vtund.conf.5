@@ -1,5 +1,5 @@
 .\" Manual page for vtund.conf
-.\" $Id$
+.\" $Id: vtund.conf.5,v 1.4.2.6 2016/09/17 20:01:24 mtbishop Exp $
 .TH VTUND.CONF 5
 
 .SH NAME
@@ -48,7 +48,7 @@ specifies general options to use by
 Possible \fIkeyword\fRs are:
 .IP \fBtype\fR\ \fBstand\fR|\fBinetd\fR
 server type. \fBvtund\fR(8) can operate in standalone
-mode (\fBstand\fR), that is the default, or be invoked from
+mode (\fBstand\fR), that is the default (but not available on no-MMU systems), or be invoked from
 .BR inetd (8).
 
 .IP \fBport\ \fIportnumber\fR
@@ -283,6 +283,7 @@ Ignored by the client.
 list of programs to run after connection has been established.
 Used to initialize protocols, devices, routing and firewall.
 This option looks like whole section inside of session section.
+For now, it's impossible to run \fBup\fR commands on no-MMU systems, so the section is ignored there.
 Format:
 .nf
  \fBup\fR {
@@ -332,6 +333,7 @@ run program specified by \fBfirewall\fR statement in \fBoptions\fR section.
 .IP \fBdown\ \fIlist\fR
 list of programs to run after connection has been terminated.
 It is similar to \fBup\fR parameter above.
+Not available on no-MMU systems too.
 Format:
 .nf
  \fBdown\fR {

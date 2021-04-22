@@ -1,4 +1,4 @@
-# $Id$
+# $Id: vtun.spec,v 1.24.2.11 2016/09/17 20:01:58 mtbishop Exp $
 
 # By default, builds without socks-support.
 # To build with socks-support, issue:
@@ -14,7 +14,7 @@
 
 # define variables here for older RPM versions.
 %define name	vtun
-%define version	3.0.3
+%define version	3.0.4
 %define release	1
 
 # expansion of the previous part.

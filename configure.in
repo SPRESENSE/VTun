@@ -1,8 +1,8 @@
 dnl
 dnl VTun - Virtual Tunnel over TCP/IP network.
-dnl Copyright (C) 1998-2006  Maxim Krasnyansky <max_mk@yahoo.com>
+dnl Copyright (C) 1998-2016  Maxim Krasnyansky <max_mk@yahoo.com>
 dnl
-dnl $Id$
+dnl $Id: configure.in,v 1.19.2.4 2016/10/01 21:46:01 mtbishop Exp $
 dnl
 dnl Process this file with autoconf to produce a configure script.
 dnl

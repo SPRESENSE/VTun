@@ -1,5 +1,5 @@
 .\" Manual page for vtund
-.\" $Id$
+.\" $Id: vtund.8,v 1.6.2.3 2016/09/17 20:01:21 mtbishop Exp $
 .\" SH section heading
 .\" SS subsection heading
 .\" LP paragraph
@@ -77,11 +77,11 @@ Read config information from the
 (full path required). By default vtund uses /etc/vtund.conf
 .TP
 .I -n 
-Do not become daemon.
+Do not become daemon (required on no-MMU systems).
 .SS Server mode: 
 .TP
 .I -s
-Run as the server.
+Run as the server (not available on no-MMU systems).
 .TP
 .I -i
 Run as the inetd server.
