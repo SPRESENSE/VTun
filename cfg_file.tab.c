@@ -124,6 +124,7 @@ int  parse_syslog(char *facility);
 int yyparse(void);
 int yylex(void);	
 int yyerror(char *s); 
+int yylex_destroy(void);
 
 #define YYERROR_VERBOSE 1
 
@@ -2473,4 +2474,23 @@ int read_config(char *file)
    fclose(yyin);
   
    return !llist_empty(&host_list);     
+}
+
+/*
+ * Free config data.
+ */
+int free_config(void)
+{
+    yylex_destroy();
+
+    if (parse_host->host) {
+        free(parse_host->host);
+        parse_host->host = NULL;
+    }
+    if (parse_host->sopt.host) {
+        free(parse_host->sopt.host);
+        parse_host->sopt.host = NULL;
+    }
+
+    return 0;
 }

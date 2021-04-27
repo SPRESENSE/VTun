@@ -65,6 +65,7 @@ int is_rmt_fd_connected=1;
 int main(int argc, char *argv[], char *env[])
 {
      int svr, daemon, sock, fd, opt;
+     int ret = 0;
 #if defined(HAVE_WORKING_FORK) || defined(HAVE_WORKING_VFORK)
      int dofork;
 #endif
@@ -163,13 +164,15 @@ int main(int argc, char *argv[], char *env[])
      if(!svr){
 	if( argc - optind < 2 ){
 	   usage();
-           exit(1);
+	   ret = 1;
+           goto exit;
 	}
 	hst = argv[optind++];
 
         if( !(host = find_host(hst)) ){	
 	   vtun_syslog(LOG_ERR,"Host %s not found in %s", hst, vtun.cfg_file);
-	   exit(1);
+	   ret = 1;
+           goto exit;
         }
 
 	vtun.svr_name = strdup(argv[optind]);
@@ -200,11 +203,16 @@ int main(int argc, char *argv[], char *env[])
 
      if( daemon ){
 #ifdef HAVE_WORKING_FORK
-	if( dofork && fork() )
-	   exit(0);
+	if( dofork && fork() ) {
+	   ret = 0;
+           goto exit;
+        }
 #elif defined(HAVE_WORKING_VFORK)
-	if( dofork && vfork() )
-	   exit(0);
+	if( dofork && vfork() ) {
+	   ret = 0;
+           goto exit;
+        }
+
 #endif
 
         /* Direct stdin,stdout,stderr to '/dev/null' */
@@ -231,7 +239,8 @@ int main(int argc, char *argv[], char *env[])
 	   write_pid();
 #else
 	   vtun_syslog(LOG_ERR,"Standalone server is not supported. Use -i");
-	   exit(1);
+	   ret = 1;
+           goto exit;
 #endif
 	}
 	
@@ -241,9 +250,34 @@ int main(int argc, char *argv[], char *env[])
         client(host);
      }
 
+exit:
+     free(vtun.ppp);
+     free(vtun.ifcfg);
+     free(vtun.route);
+     free(vtun.fwall);
+     free(vtun.iproute);
+
+     vtun.ppp = NULL;
+     vtun.ifcfg = NULL;
+     vtun.route = NULL;
+     vtun.fwall = NULL;
+     vtun.iproute = NULL;
+     
+     if (vtun.svr_addr) {
+         free(vtun.svr_addr);
+         vtun.svr_addr = NULL;
+     }
+
+     if (vtun.svr_name) {
+         free(vtun.svr_name);
+         vtun.svr_name = NULL;
+     }
+
+     free_config();
+
      closelog();
 	
-     return 0;
+     return ret;
 }
 
 #ifdef HAVE_WORKING_FORK

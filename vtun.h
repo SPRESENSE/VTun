@@ -231,6 +231,7 @@ void server(int sock);
 void client(struct vtun_host *host);
 int  tunnel(struct vtun_host *host);
 int  read_config(char *file);
+int  free_config(void);
 struct vtun_host * find_host(char *host);
 void clear_nat_hack_flags(int svr);
 
