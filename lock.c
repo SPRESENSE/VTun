@@ -38,11 +38,6 @@
 #include "lib.h" 
 #include "lock.h"
 
-#ifdef VTUN_NUTTX
-extern int link(FAR const char *path1, FAR const char *path2);
-extern int unlink(FAR const char *pathname);
-#endif
-
 int create_lock(char * file)
 {
   char tmp_file[255], str[20];
