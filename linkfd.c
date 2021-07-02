@@ -176,12 +176,17 @@ static void sig_hup(int sig)
 }
 
 /* Statistic dump and keep-alive monitor */
+#ifdef VTUN_NUTTX
+typedef int64_t _time_t;
+#else
+typedef time_t _time_t;
+#endif
 static volatile sig_atomic_t ka_need_verify = 0;
-static time_t stat_timer = 0, ka_timer = 0; 
+static _time_t stat_timer = 0, ka_timer = 0;
 
 static void sig_alarm(int sig)
 {
-     static time_t tm_old, tm = 0;
+     static _time_t tm_old, tm = 0;
      static char stm[20];
  
      tm_old = tm;
@@ -194,7 +199,7 @@ static void sig_alarm(int sig)
      }
 
      if( (lfd_host->flags & VTUN_STAT) && (stat_timer -= tm-tm_old) <= 0){
-        strftime(stm, sizeof(stm)-1, "%b %d %H:%M:%S", localtime(&tm)); 
+        strftime(stm, sizeof(stm)-1, "%b %d %H:%M:%S", localtime((time_t *)&tm)); 
         fprintf(lfd_host->stat.file,"%s %lu %lu %lu %lu\n", stm, 
 	   lfd_host->stat.byte_in, lfd_host->stat.byte_out,
 	   lfd_host->stat.comp_in, lfd_host->stat.comp_out); 
