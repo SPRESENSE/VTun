@@ -56,8 +56,10 @@ static void write_pid(void);
 static void reread_config(int sig);
 static void usage(void);
 
+#ifndef VTUN_NUTTX
 extern int optind,opterr,optopt;
 extern char *optarg;
+#endif
 
 /* for the NATHack bit.  Is our UDP session connected? */
 int is_rmt_fd_connected=1; 
