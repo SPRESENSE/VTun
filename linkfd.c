@@ -367,11 +367,14 @@ static int lfd_linker(void)
 /* Link remote and local file descriptors */ 
 int linkfd(struct vtun_host *host)
 {
-#ifdef VTUN_NUTTX
      struct sigaction sa, sa_oldint;
-#else
-     struct sigaction sa, sa_oldterm, sa_oldint, sa_oldhup;
+#ifdef SIGTERM
+     struct sigaction sa_oldterm;
 #endif
+#ifdef SIGHUP
+     struct sigaction sa_oldhup;
+#endif
+
      int old_prio;
 
      lfd_host = host;
@@ -409,7 +412,7 @@ int linkfd(struct vtun_host *host)
      sigaction(SIGINT,&sa,&sa_oldint);
 #endif
      sa.sa_handler=sig_hup;
-#ifndef VTUN_NUTTX
+#ifdef SIGHUP
      sigaction(SIGHUP,&sa,&sa_oldhup);
 #endif
 
