@@ -382,6 +382,10 @@ int linkfd(struct vtun_host *host)
      old_prio=getpriority(PRIO_PROCESS,0);
      setpriority(PRIO_PROCESS,0,LINKFD_PRIO);
 
+#ifdef VTUN_NUTTX
+     update_vtun_state(true);
+#endif
+
      /* Build modules stack */
      if(host->flags & VTUN_ZLIB)
 	lfd_add_mod(&lfd_zlib);
@@ -461,6 +465,10 @@ int linkfd(struct vtun_host *host)
 #endif
 #ifndef VTUN_NUTTX
      sigaction(SIGHUP,&sa_oldhup,NULL);
+#endif
+
+#ifdef VTUN_NUTTX
+     update_vtun_state(false);
 #endif
 
      setpriority(PRIO_PROCESS,0,old_prio);

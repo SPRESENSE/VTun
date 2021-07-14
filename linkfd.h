@@ -71,6 +71,10 @@ static inline void lfd_free(void *buf)
 
 int linkfd(struct vtun_host *host);
 
+#ifdef VTUN_NUTTX
+int update_vtun_state(int enable);
+#endif
+
 /* Module */
 struct lfd_mod {
    char *name;
