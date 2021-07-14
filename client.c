@@ -117,11 +117,13 @@ void client(struct vtun_host *host)
         opt=1;
         setsockopt(s, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)); 
 
+#ifndef VTUN_NUTTX
         if( bind(s,(struct sockaddr *)&my_addr,sizeof(my_addr)) ){
 	   vtun_syslog(LOG_ERR,"Can't bind socket. %s(%d)",
 		strerror(errno), errno);
 	   continue;
         }
+#endif
 
         /* 
          * Clear speed and flags which will be supplied by server. 
